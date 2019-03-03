@@ -6,6 +6,7 @@ public class PlatformGeneration : MonoBehaviour
 {
     public GameObject newPlatform;
     public GameObject Player;
+    public GameObject Enemy;
     public Transform newPoint;
     public float SpaceBetweenY;
     public float SpaceBetweenX;
@@ -17,10 +18,14 @@ public class PlatformGeneration : MonoBehaviour
     private SpriteRenderer spr;
     private float DivergenceX;
     private float DivergenceY;
+    private int spawnchance;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        
+       
         spr = newPlatform.GetComponent<SpriteRenderer>();
         platformWidth = newPlatform.GetComponent<BoxCollider>().size.x;
         platformHeight = newPlatform.GetComponent<BoxCollider>().size.y;
@@ -29,10 +34,11 @@ public class PlatformGeneration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Platform randomness generation
+        //randomness generation
         int randy = Random.Range(-2, 2);
         DivergenceX = Random.Range(-VarianceX, VarianceX);
         DivergenceY = Random.Range(-VarianceY, VarianceY);
+        spawnchance = Random.Range(-3, 3);
         //
         //application of randomness
         if (randy > 0)
@@ -49,11 +55,33 @@ public class PlatformGeneration : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x+DivergenceX, transform.position.y + platformHeight + SpaceBetweenY, transform.position.z);
                 Instantiate(newPlatform, transform.position, transform.rotation);
+                if(spawnchance == 0)
+                {
+                    if (randy > 0)
+                    {
+                        Instantiate(Enemy, new Vector3(transform.position.x, transform.position.y + platformHeight, transform.position.z), transform.rotation);
+                    }
+                    else
+                    {
+                        Instantiate(Enemy, new Vector3(transform.position.x, transform.position.y + platformHeight, transform.position.z), Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z));
+                    }
+                }
             }
             if ((DivergenceX < -(platformWidth + SpaceBetweenX)) || (transform.position.y - Player.transform.position.y > 5))
             {
                 transform.position = new Vector3(transform.position.x + DivergenceX, transform.position.y + platformHeight + SpaceBetweenY , transform.position.z);
                 Instantiate(newPlatform, transform.position, transform.rotation);
+                if (spawnchance == 0)
+                {
+                    if (randy > 0)
+                    {
+                        Instantiate(Enemy, new Vector3(transform.position.x, transform.position.y + platformHeight, transform.position.z), transform.rotation);
+                    }
+                    else
+                    {
+                        Instantiate(Enemy, new Vector3(transform.position.x, transform.position.y + platformHeight, transform.position.z), Quaternion.Euler(transform.rotation.x,180,transform.rotation.z));
+                    }
+                }
             }
             
         }

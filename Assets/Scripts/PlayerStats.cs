@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
-    public int Health = 5;
-    public int Score;
+    public int MaxHealth = 5;
     public int Time;
     public int Breath = 5;
     public GameObject UI;
     public Canvas canvas;
     public Sprite Spr;
     public List<GameObject> Hearts;
-    public int NumberOfHearts = 5;
+    public int NumberOfHearts;
+    public bool takeDmg = false;
+    public int Health = 1;
 
 
 
@@ -33,7 +35,8 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
 
-
+        Health = MaxHealth;
+        NumberOfHearts = MaxHealth;
 
         for (int i = 1; i <= NumberOfHearts; i++)
 
@@ -47,7 +50,8 @@ public class PlayerStats : MonoBehaviour
             NewObj.GetComponent<RectTransform>().SetParent(UI.transform);
             rect = NewObj.GetComponent<RectTransform>();
             rect.localScale = new Vector3(0.5f, 0.5f, 1);
-            rect.anchoredPosition = new Vector3(15 + ((i - 1) * 100), 0, 100);
+            
+            rect.anchoredPosition = new Vector3(0 + ((i - 1) * Screen.width/20), Screen.height/8.5f, 100);
             NewObj.SetActive(true);
         }
 
@@ -73,6 +77,9 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         frame += 1;
+
+        Score.scoreP = System.Convert.ToInt32(System.Math.Round((transform.position.y)));
+        
         //heart list stuff
         foreach (Transform child in UI.transform)
         {
@@ -99,7 +106,7 @@ public class PlayerStats : MonoBehaviour
                     if (DamageFromDrowning < DamageNeeded)
                     {
 
-                        Hearts[Hearts.Count - DamageNeeded].GetComponent<Image>().enabled = false;
+                        Destroy(Hearts[(Hearts.Count)-1]);
                     }
                     //
                 }
@@ -111,8 +118,21 @@ public class PlayerStats : MonoBehaviour
             Breath = 5;
         }
         //
+        if (takeDmg == true)
+        {
 
+            Destroy(Hearts[(Hearts.Count)-1]);
+            takeDmg = false;
+        }
 
+        if(Health <= 0)
+        {
+            SceneManager.LoadScene(sceneName: "GameOver");
+        }
+        if(transform.position.y < -1)
+        {
+            Health = 0;
+        }
 
     }
 }

@@ -16,13 +16,16 @@ public class Move : MonoBehaviour
     public float Grav = 60f;
     public Rigidbody RB;
     public Animator anim;
+    public bool Attacking = false;
     
     
-    bool Debounce = false;
+    private bool Debounce = false;
+    private bool Debounce2 = false;
     private int frame;
     private int pastframe;
+    private int pastframe2;
     private float distance;
-    
+    private BoxCollider hitbox;
     
 
     // Start is called before the first frame update
@@ -64,7 +67,7 @@ public class Move : MonoBehaviour
        
 
         //right and left movement
-        if ((RL > 0))
+        if ((RL > 0) && Attacking == false)
         {
             if (Debounce == true)
             {
@@ -78,7 +81,7 @@ public class Move : MonoBehaviour
                 anim.SetInteger("move", 1);
             }
         }
-        else if ((RL < 0))
+        else if ((RL < 0) && Attacking == false)
         {
 
             if (Debounce == true)
@@ -101,7 +104,7 @@ public class Move : MonoBehaviour
         }
 
         //Jump Code
-        if (Input.GetButtonDown("Jump") && Debounce == false)
+        if (Input.GetButtonDown("Jump") && Debounce == false && Attacking == false)
         {
             pastframe = frame;
             Debounce = true;
@@ -113,6 +116,7 @@ public class Move : MonoBehaviour
         if (frame - pastframe > 20)
         {
             anim.SetBool("Jump", false);
+            
         }
         //checking if character is close to ground
         RaycastHit hit;
@@ -128,6 +132,31 @@ public class Move : MonoBehaviour
             {
                 anim.SetBool("IsCloseToGround", false);
             }
+        }
+        if (Input.GetButtonDown("Fire1") && Debounce2 == false)
+        {
+            pastframe2 = frame;
+            Debounce2 = true;
+            Attacking = true;
+            anim.SetBool("Attacking", true);
+            anim.SetBool("Attacked", true);
+            hitbox = gameObject.AddComponent<BoxCollider>();
+            hitbox.size = new Vector3(1.5f,1,2);
+            hitbox.center = new Vector3(0,0,0);
+
+
+        }
+        if (frame - pastframe2 > 20)
+        {
+            Attacking = false;
+            anim.SetBool("Attacking", false);
+            Destroy(hitbox);
+            Debounce2 = false;
+
+        }
+        if (frame - pastframe2 > 5)
+        {
+            anim.SetBool("Attacked", false);
         }
 
         Vector3 vel = RB.velocity;
