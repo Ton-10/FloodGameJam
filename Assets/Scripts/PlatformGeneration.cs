@@ -32,25 +32,26 @@ public class PlatformGeneration : MonoBehaviour
 
         if (transform.position.y < newPoint.position.y)
         {
-            if ((DivergenceX > platformWidth + SpaceBetweenX) || (transform.position.y - Player.transform.position.y < 5))
+            if ((DivergenceX > platformWidth + SpaceBetweenX) || (transform.position.y - Player.transform.position.y > 5))
             {
-                transform.position = new Vector3(transform.position.x+DivergenceX, transform.position.y + platformHeight + SpaceBetweenY, transform.position.z);
+                transform.position = new Vector3(transform.position.x+DivergenceX, transform.position.y + platformHeight , transform.position.z);
                 Instantiate(newPlatform, transform.position, transform.rotation);
             }
-            if ((DivergenceX < -(platformWidth) - SpaceBetweenX) || (transform.position.y - Player.transform.position.y < 5))
+            if ((DivergenceX < -(platformWidth + SpaceBetweenX)) || (transform.position.y - Player.transform.position.y > 5))
             {
-                transform.position = new Vector3(transform.position.x + DivergenceX, transform.position.y + platformHeight + SpaceBetweenY, transform.position.z);
+                transform.position = new Vector3(transform.position.x + DivergenceX, transform.position.y + platformHeight , transform.position.z);
                 Instantiate(newPlatform, transform.position, transform.rotation);
             }
             
         }
-        /*if (transform.position.x < newPoint.position.x)
+        /*if (transform.position.x > newPoint.position.x)
         {
-               
-                transform.position = new Vector3(transform.position.x + platformWidth + SpaceBetweenX, transform.position.y, transform.position.z);
-                Instantiate(newPlatform, transform.position, transform.rotation);
-            
+            transform.position = new Vector3(transform.position.x + platformWidth + SpaceBetweenX, DivergenceY , transform.position.z);
+            Instantiate(newPlatform, transform.position, transform.rotation);
+
+
         }
         */
+        
     }
 }
