@@ -118,7 +118,7 @@ public class Move : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out hit))
         {
-            print("anything");
+            
             distance = hit.distance;
             if (distance <= 1.5)
             {

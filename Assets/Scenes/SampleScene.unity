@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -433,7 +433,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 799535146}
-  speed: 1.5
+  speed: 2
 --- !u!1 &799535146 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 799535146, guid: 07b9d094a40ef0a43b857b07fcae413a,
@@ -504,6 +504,7 @@ MonoBehaviour:
   canvas: {fileID: 475147497}
   Spr: {fileID: 21300000, guid: 9b5c23a084b86704e9e5a0c9d68532d4, type: 3}
   Hearts: []
+  NumberOfHearts: 5
 --- !u!54 &799535148 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 799535147, guid: 07b9d094a40ef0a43b857b07fcae413a,
@@ -607,26 +608,6 @@ Transform:
   m_Father: {fileID: 534669905}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1274758486 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6633955970809319772, guid: 23c7c526279acf44cac375f388bfe975,
-    type: 3}
-  m_PrefabInstance: {fileID: 7978610022199351805}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1274758491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274758486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c3b63c8370d00e42814547a8a3b180f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 799535146}
-  RB: {fileID: 799535148}
 --- !u!1 &1431542667
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,8 +676,8 @@ MonoBehaviour:
     type: 3}
   Player: {fileID: 799535146}
   newPoint: {fileID: 1223038961}
-  SpaceBetweenY: 5
-  SpaceBetweenX: 3
+  SpaceBetweenY: 0.8
+  SpaceBetweenX: 0.5
   VarianceX: 6
   VarianceY: 1
 --- !u!4 &1483928345
@@ -943,11 +924,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 799535152, guid: 07b9d094a40ef0a43b857b07fcae413a, type: 3}
       propertyPath: JumpPow
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 799535152, guid: 07b9d094a40ef0a43b857b07fcae413a, type: 3}
       propertyPath: Speed
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 799535148, guid: 07b9d094a40ef0a43b857b07fcae413a, type: 3}
       propertyPath: m_Size.x
@@ -966,11 +947,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform
-      objectReference: {fileID: 0}
-    - target: {fileID: 6633955970809319772, guid: 23c7c526279acf44cac375f388bfe975,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3716461935159681091, guid: 23c7c526279acf44cac375f388bfe975,
         type: 3}
@@ -1027,5 +1003,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1274758491, guid: 23c7c526279acf44cac375f388bfe975, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 799535146}
+    - target: {fileID: 1274758491, guid: 23c7c526279acf44cac375f388bfe975, type: 3}
+      propertyPath: RB
+      value: 
+      objectReference: {fileID: 799535148}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23c7c526279acf44cac375f388bfe975, type: 3}

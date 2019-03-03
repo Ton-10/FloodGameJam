@@ -14,12 +14,14 @@ public class PlatformGeneration : MonoBehaviour
 
     private float platformWidth;
     private float platformHeight;
+    private SpriteRenderer spr;
     private float DivergenceX;
     private float DivergenceY;
 
     // Start is called before the first frame update
     void Start()
     {
+        spr = newPlatform.GetComponent<SpriteRenderer>();
         platformWidth = newPlatform.GetComponent<BoxCollider>().size.x;
         platformHeight = newPlatform.GetComponent<BoxCollider>().size.y;
     }
@@ -27,19 +29,30 @@ public class PlatformGeneration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Platform randomness generation
+        int randy = Random.Range(-2, 2);
         DivergenceX = Random.Range(-VarianceX, VarianceX);
         DivergenceY = Random.Range(-VarianceY, VarianceY);
-
+        //
+        //application of randomness
+        if (randy > 0)
+        {
+            spr.flipX = true;
+        }
+        else
+        {
+            spr.flipX = false;
+        }
         if (transform.position.y < newPoint.position.y)
         {
             if ((DivergenceX > platformWidth + SpaceBetweenX) || (transform.position.y - Player.transform.position.y > 5))
             {
-                transform.position = new Vector3(transform.position.x+DivergenceX, transform.position.y + platformHeight , transform.position.z);
+                transform.position = new Vector3(transform.position.x+DivergenceX, transform.position.y + platformHeight + SpaceBetweenY, transform.position.z);
                 Instantiate(newPlatform, transform.position, transform.rotation);
             }
             if ((DivergenceX < -(platformWidth + SpaceBetweenX)) || (transform.position.y - Player.transform.position.y > 5))
             {
-                transform.position = new Vector3(transform.position.x + DivergenceX, transform.position.y + platformHeight , transform.position.z);
+                transform.position = new Vector3(transform.position.x + DivergenceX, transform.position.y + platformHeight + SpaceBetweenY , transform.position.z);
                 Instantiate(newPlatform, transform.position, transform.rotation);
             }
             
